@@ -1,7 +1,727 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 3-1 here
-	</body>
-</html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS 184: Computer Graphics and Imaging, Spring 2023</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="dbe694bd-de8d-4b04-9d46-309c0e5a32e0" class="page sans"><header><h1 class="page-title">CS 184: Computer Graphics and Imaging, Spring 2023</h1></header><div class="page-body"><h1 id="eee939fd-2bcf-4f58-a5e9-b6430bc74505" class="">Project 3-1: Path Tracer</h1><h2 id="cb157ca5-3a07-4553-8aa3-815677ff15a7" class="">Brian Santoso, CS184 Team: #1-beabadoobee-fan</h2><h1 id="23d5bbb0-6575-4beb-834f-0c62002a234f" class="">Overview</h1><p id="777aded3-b593-44ea-96b4-6f9fb22a75c2" class="">In this project I implemented a path tracer renderer including a bounding volume hierarchy (BVH) for ray intersection acceleration, hemisphere and importance direct lighting, global illumination, and adaptive sampling.</p><p id="dbe3d130-b3f5-414f-bf73-6a276f1b456f" class="">In Part 1, I implement primary camera ray generation and primitive (triangle, sphere) intersection.</p><p id="e1d3ea9a-01d8-47f8-90b8-f49b3c0ead8e" class="">In Part 2, I construct a BVH with mean centroid position as the splitting point heuristic to accelerate ray-scene intersections.</p><p id="60513d1f-106d-4159-b5fe-94c412877997" class="">In Part 3, I implement direct lighting using 2 methods, uniform hemisphere sampling and light importance sampling.</p><p id="a8336f1e-805c-48bf-b796-ff83b471e27f" class="">In Part 4, I implement global illumination with Russian Roulette.</p><p id="58d56169-46e6-40fd-a5e6-2969baf551b9" class="">In Part 5, I implement adaptive sampling to non-uniformly allocate samples to areas of the image that will need more or less samples to converge to the right answer. </p><h1 id="26bca35b-37d9-455b-b63f-76eb3d5c537e" class="">Part 1</h1><p id="d4edab21-b511-4c97-b864-9e4bba54e0f6" class=""><strong>Walk through the ray generation and primitive intersection parts of the rendering pipeline.</strong></p><p id="fcdc50d9-5428-4145-be3e-ed3563589441" class="">To generate a camera ray given normalized image coordinates <code>(x, y)</code> (<code>[0, 1] x [0, 1]</code>), I first compute the position of the bottom left corner of the camera sensor in camera space, which is equal to <code>(-half_width, -half_height, -1)</code> where half_width and half_height are equal to <code>tan(radians(hFov) / 2)</code> and <code>tan(radians(vFov) / 2)</code> respectively.</p><p id="7d9e8677-e8ee-43da-94c8-215250c5b54b" class="">
+</p><p id="dca03c6b-b7fc-4f11-bf73-3977f0aa5638" class="">I then compute the location of the sensor point in camera space corresponding to normalized image coordinates. This can be done by scaling <code>(x, y)</code> by the width and height of the camera sensor and adding them to the bottom left corner of the camera sensor.</p><figure id="76011264-40c2-446b-9066-ebc1dadca1c8" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled.png"><img style="width:720px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled.png"/></a><figcaption>Image from <a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj3-1-part-1">https://cs184.eecs.berkeley.edu/sp23/docs/proj3-1-part-1</a></figcaption></figure><p id="536956b4-37e7-4f4f-bf09-967196449276" class="">Finally I transform the sensor point to world-space by multiplying by the camera-to-world space rotation matrix before translating by the camera position.</p><p id="fb349c79-f71d-4914-8120-2a5421c32bea" class="">Now that I have the camera position and sensor point corresponding to the normalized image coordinates, the camera ray can be easily initialized with its origin being the camera’s position and its direction being found by the normalizing vector that starts at camera’s position and passes through the sensor point. Finally, I assign lower and upper bounds to the ray’s <code>t</code> parameter equal to the camera’s near clipping and far clipping planes, respectfully.</p><div id="25fe4947-8e64-42ef-88bc-10f0298430e0" class="column-list"><div id="eb918afa-0aed-4a49-bdc9-589c998cbd07" style="width:50%" class="column"><p id="04598290-9b67-4f6a-8cb3-e69f493dc412" class="">Once a ray is cast into the scene, it is tested for intersections against the primitive shapes in the scene, which at this point are triangles and spheres. If multiple primitives intersect the ray, the intersection used is the one closest to the camera (with the smallest <code>t</code> parameter).</p><p id="57b99b23-98c3-4376-8c4e-8ef783937a25" class="">An intersection is represented as a struct containing helpful information, including the primitive that caused the intersection, the <code>t</code> parameter, the normal of the surface at the point of intersection, and the BSDF of the surface corresponding to the intersection.</p><p id="3f5e7a75-1739-4a3e-a01e-8f0d2985d10b" class="">It is important to note that an intersection is only considered valid if the <code>t</code> parameter falls within the ray’s <code>min_t</code> and <code>max_t</code> fields.</p><p id="c4f92a55-d7f7-4d6a-a1f2-c6db4986ab6d" class="">A ray and a given sphere can have up to 2 intersections. We are only interested in the closest valid intersection to the camera.</p><p id="1bcbff05-840b-44b3-a424-c62654c7959a" class="">The ray-triangle intersection algorithm is described in the next section.</p></div><div id="8ed1fa3a-d093-43fe-9261-e7c51b805667" style="width:50%" class="column"><figure id="b83325a9-4a3f-49a5-9933-a3b56113cdfe" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%201.png"><img style="width:384px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%201.png"/></a></figure></div></div><p id="b042e98e-1b22-4b80-98cd-6215cb11faa0" class="">
+</p><p id="252d4cde-d3b9-42f8-9dc7-b973514487b2" class=""><strong>Explain the triangle intersection algorithm you implemented in your own words.</strong></p><div id="e7f2a9d2-18dc-4a8f-9809-367bd590d795" class="column-list"><div id="075d05e0-bdac-464f-bd2f-9e2ce4299798" style="width:50%" class="column"><p id="5e3efbdc-07cc-4b92-82e4-6a17ea8d2427" class="">To implement ray-triangle intersection I used the Möller–Trumbore algorithm. </p><p id="05df23cb-852d-4945-931b-62e829ecec9f" class="">Given a ray and a triangle’s vertices, the algorithm computes the parameter t and the barycentric coordinates of a ray-triangle intersection, if there is one. This is done by calculating the normal vector of plane the triangle lies on (recall that any 3 points are coplanar), then finding if the ray intersects the plane, and if so, whether the intersection point lies within the 3 edges triangle using the barycentric coordinates of the intersection point.</p><p id="02f63115-5a7b-49e3-b921-67646f9fa08c" class="">
+</p></div><div id="e276de89-bce6-45dc-819a-6c47ea54df16" style="width:50%" class="column"><figure id="19f56936-3393-48f4-af14-43bd154bc7d6" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%202.png"><img style="width:432px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%202.png"/></a></figure></div></div><p id="149ef42f-f84b-4b4c-bdf4-bf92afd73633" class="">
+</p><p id="c9919924-63aa-4874-b888-87bce63c9ef1" class="">
+</p><p id="31a028a3-80ab-4216-a937-c67ad32b451a" class=""><strong>Show images with normal shading for a few small </strong><strong><em>.dae</em></strong><strong> files.</strong></p><div id="34968531-ce91-4e51-b184-f4c1f7f8967c" class="column-list"><div id="9b4de35c-d6d2-486b-9788-cd2a6a094816" style="width:33.333333333333336%" class="column"><figure id="7626bb26-d653-47d8-94ad-ee9d0a3d944d" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%203.png"><img style="width:768px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%203.png"/></a><figcaption>Simple rendering of CBempty.dae with normal shading
+<code>./pathtracer -r 800 600 -f CBempty.png ../dae/sky/CBempty.dae</code></figcaption></figure></div><div id="54a0b4d9-4928-4164-a74b-deb8b3dde547" style="width:33.333333333333336%" class="column"><figure id="0d12e9dd-4ecb-4dca-aebc-1787e0ee13bb" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/CBspheres.png"><img style="width:800px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/CBspheres.png"/></a><figcaption>Simple rendering of CBsperes.dae with normal shading
+<code>./pathtracer -r 800 600 -f CBspheres.png ../dae/sky/CBspheres.dae</code></figcaption></figure><p id="a5018795-66a8-41b1-867b-c42cd3b3d2dd" class="">
+</p></div><div id="e16a0237-65e2-4a44-befa-e3335cefac3b" style="width:33.33333333333333%" class="column"><figure id="d712b68d-36be-4855-bd26-854b9db96cc4" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/cow.png"><img style="width:800px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/cow.png"/></a><figcaption>Simple rendering of cow.dae with normal shading
+ <code>./pathtracer -r 800 600 -f cow.png ../dae/meshedit/cow.dae</code></figcaption></figure></div></div><h1 id="28645a1e-cea7-468e-acd7-6f31fd622c8b" class="">Part 2</h1><p id="90d01aed-0623-4cf1-80d1-1016695d18f4" class=""><strong>Walk through your BVH construction algorithm. Explain the heuristic you chose for picking the splitting point.</strong></p><p id="a73ad7cc-4edd-445c-9f46-cf9977349d03" class="">To recursively construct a BVH given a list of primitives, I first compute the bounding box containing all primitives. This corresponds to the bounding box of the current BVH node. </p><p id="9f4af09c-b211-42ad-954f-eb60e99f7b94" class="">If there are at most <code>max_leaf_size</code> primitives, then the current node is a leaf node and I return a newly constructed node containing the given list of primitives. </p><p id="5addb341-727b-4cae-b7a5-c42475796062" class="">Otherwise. the node is an interior BVH node, in which case I must partition the list of primitives into 2 halves, left and right, based on a splitting point. The heuristic I use to pick the splitting point is the mean centroid position. To do this, I first sort all the objects along the longest axis of the current node’s bounding box. Then I compute the average position of the given primitives’ centroids and partition the objects with a plane perpendicular to the longest axis of the current node’s bounding box, containing the average centroid.</p><p id="9fc2c65b-22b1-42cc-b2bc-fa09d53c271c" class="">It is possible that after partitioning, the polygons will lie on the same side of the plane (one list is full and one list is empty). This case would result in infinite recursion since the left or right child of the current node would contain the same list of primitives. So in this case, I partition the list of primitives into 2 halves after sorting.</p><p id="c54274d5-eb99-4756-aabe-c292f1e1796f" class="">Finally, I recursively compute the current node’s left and right children nodes with the newly created left and right partitions, respectfully, and return the newly created node.</p><p id="e3299b5a-01a3-45c4-ac52-7223cec0cdb1" class="">
+</p><p id="141b3a95-2665-484a-9dad-b6795994e896" class=""><strong>Show images with normal shading for a few large </strong><strong><em>.dae</em></strong><strong> files that you can only render with BVH acceleration.</strong></p><div id="f955df7b-cda8-4071-89a4-7ea24d40e760" class="column-list"><div id="bb3c2fb6-2998-4330-a317-3437cad616a2" style="width:50%" class="column"><figure id="1db9dfc3-9a43-45fd-8256-754b68727bd7" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/cow_screenshot_3-13_13-28-49.png"><img style="width:1848px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/cow_screenshot_3-13_13-28-49.png"/></a></figure><figure id="f66cf3dc-5dd4-41d9-a485-c52235b00288" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/beast_screenshot_3-13_13-31-48.png"><img style="width:1848px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/beast_screenshot_3-13_13-31-48.png"/></a></figure></div><div id="b22f590a-cb34-4430-a7ab-43849c9ed26d" style="width:50%" class="column"><figure id="404c4ae2-8922-48cb-a5b4-96c1868b8c4c" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/maxplanck_screenshot_3-13_13-30-25.png"><img style="width:1848px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/maxplanck_screenshot_3-13_13-30-25.png"/></a></figure><figure id="a3a44718-b153-4381-bd2c-3f0a495dd376" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/CBlucy_screenshot_3-13_13-34-52.png"><img style="width:1848px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/CBlucy_screenshot_3-13_13-34-52.png"/></a></figure></div></div><p id="15fedb03-32d2-4124-abb2-f474a816ce36" class="">
+</p><p id="f034543b-7e28-4cbd-9b84-d2bd47775fa0" class="">
+</p><p id="35c7a5da-1b49-4a44-bfde-ccae3a0eec0d" class=""><strong>Compare rendering times on a few scenes with moderately complex geometries with and without BVH acceleration. Present your results in a one-paragraph analysis.</strong></p><p id="60791619-b1a8-491e-b48c-4f9b80fcabc7" class="">
+</p><p id="a381d796-b72c-4da2-85ba-c303cb94d429" class="">The rendering time for <code>cow.dae</code> without BVH acceleration is 40 seconds, while with BVH acceleration shortens it to 0.1157 seconds<em>.</em></p><p id="1cf7d586-4a84-40f8-97f9-8c0c1a38eaf7" class="">The rendering time for <code>bunny.dae</code> without BVH acceleration is 110 seconds, while with BVH acceleration shortens it to 1.3492 seconds.</p><p id="f203cd79-d818-47c3-8e91-74235deb83f8" class="">BVH acceleration sees a larger difference in render times the more complex the scene is, i.e. as the number of primitives increase. Scenes that were unrenderable with the exhaustive implementation are now feasibly renderable with a BVH. Scenes with relatively simple geometries see less benefit from BVH acceleration, and rendering an extremely simple scene such as <code>cube.dae</code> even sees a slow down from the exhaustive implementation since the time to construct the BVH exceeds the time saved from using it.</p><p id="9ac9fd86-3c87-494d-a8df-7c6ed7d4c972" class="">
+</p><h1 id="a05a7b71-ade4-4394-abf4-c2ea9d844507" class=""><strong>Part 3</strong></h1><p id="5be12fdd-c6ec-43be-8b11-61698dbe0139" class=""><strong>Walk through both implementations of the direct lighting function.</strong></p><p id="fd8f2daa-d46f-4c2a-b06f-136e560bd0e0" class="">The hemisphere and importance sampling differ in the method in which incoming ray directions <code>w_i</code> are sampled. We use slightly different Monte Carlo estimators since the sampling function and probability distribution of samples differs.</p><h3 id="904bd6de-d75c-42d2-a3bd-0354417f34a2" class="">Hemisphere Sampling</h3><p id="a87cea24-e3eb-4dae-87c2-4f863bf9e670" class="">We take a number of samples equal to the light sampling rate * the number of lights in the scene.</p><p id="4cab0641-bb73-4884-b96a-9afc1d5e1ae5" class="">We uniformly sample incoming ray directions <code>w_i</code> from the unit hemisphere at the surface at the point of intersection.</p><p id="b11860ce-df87-4b16-900d-aee3f9d8adb5" class="">For each sampled incoming ray direction, we calculate the reflectance using <code>w_i</code> and the bsdf of the surface at the point of intersection. Then we calculate the zero-bounce radiance by casting an incoming ray from the hit point with the sampled direction. If the ray intersects a non-emissive surface, then the incoming radiance from this direction will be 0, manifesting in a shadow. Then we calculate the estimate of outgoing light in the direction of <code>w_out</code> as a product of this incoming radiance, the bsdf of the surface given the sampled direction, the cosine of the angle of the sample direction and the surface normal, and normalizing by the the pdf of the sample.</p><p id="15f8a0fc-8653-44aa-b68d-e2cd2a7149a3" class="">After accumulating the radiance from all samples, we normalize by the number of samples taken.</p><p id="b4311f63-e47b-4774-9279-fc13090393c6" class="">
+</p><h3 id="08d1ee69-f040-41ef-ab06-001579f56f01" class="">Importance Sampling the Lights</h3><p id="a6effda2-d29f-4333-af48-dd504ab80d75" class="">We directly sample each light source in the scene.</p><p id="2d3400eb-d56e-4c02-a392-20d6d4d14794" class="">If the light is a point light, we only take 1 sample from the light source since each sample will give the same radiance, otherwise if it is an area light we <code>ns_area_light</code> samples from the light source.</p><p id="db69f08d-2b3a-4536-8d4a-afad1863f310" class="">For each light source, and for each sample, we importance sample the light source to get a sample direction and incoming radiance. Then we cast a “shadow” ray starting from the hit point in the direction of the sampled direction. If the ray intersects anything other than the light, then the surface is blocked and the incoming radiance from this direction is 0. Otherwise, we calculate the estimate of outgoing light as a product of the incoming radiance from the light sample, the bsdf of the surface given the sampled direction, the cosine of the angle of the sample direction and the surface normal, and normalizing by the the pdf of the sample. After finishing all samples for a light source, we normalize by the number of sample taken.</p><p id="acea6c3c-104b-40cb-bb34-f252f3d7b546" class="">
+</p><p id="c9b87545-8669-4fd9-8d3b-8a01cacbe044" class=""><strong>Show some images rendered with both implementations of the direct lighting function.</strong></p><div id="8010a468-ddf1-46d8-8b16-9e085faddb93" class="column-list"><div id="8ccd80bb-84e2-4b8f-9cf8-9162d717e78c" style="width:50%" class="column"><figure id="ce2e8bac-c934-4c4f-a058-5199c56d4245" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/CBbunny_screenshot_3-13_16-8-4.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/CBbunny_screenshot_3-13_16-8-4.png"/></a><figcaption>Direct lighting with uniform hemisphere sampling 
+<code>./pathtracer -t 8 -s 64 -l 32 -m 6 -H -f CBbunny_H_64_32.png -r 480 360 ../dae/sky/CBbunny.dae</code></figcaption></figure><figure id="a9ca1b75-5189-4845-94c1-5abc70fbe567" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres.png"><img style="width:1056px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres.png"/></a><figcaption>Direct lighting with uniform hemisphere sampling 
+<code>./pathtracer -t 8 -s 64 -l 16 -m 5 -H -r 480 360 -f spheres.png ../dae/sky/CBspheres_lambertian.dae</code></figcaption></figure><p id="2e5a746d-f3b7-4601-92ae-d83bc5b2367c" class="">
+</p></div><div id="0227dc1d-3d58-4256-8151-56ad7318c2ce" style="width:50%" class="column"><figure id="9c157eb5-0492-4d53-a255-6984dd9634e0" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_64_32.png"><img style="width:768px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_64_32.png"/></a><figcaption>Direct lighting with light importance sampling
+<code>./pathtracer -t 8 -s 64 -l 32 -m 6 -f bunny_64_32.png -r 480 360 ../dae/sky/CBbunny.dae</code> 
+</figcaption></figure><figure id="64474e21-7af7-4d92-a4a7-4cad7f2a9c23" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres%201.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres%201.png"/></a><figcaption>Direct lighting with light importance sampling
+<code>./pathtracer -t 8 -s 64 -l 16 -m 5 -r 480 360 -f spheres.png ../dae/sky/CBspheres_lambertian.dae</code></figcaption></figure></div></div><p id="a358b85c-2fb5-41ff-bb97-0d859bd5cc0a" class=""><strong>Focus on one particular scene with at least one area light and compare the noise levels in soft shadows when rendering with 1, 4, 16, and 64 light rays (the </strong><strong><code>l</code></strong><strong> flag) and with 1 sample per pixel (the </strong><strong><code>s</code></strong><strong> flag) using light sampling, not uniform hemisphere sampling.</strong></p><p id="d874da41-12a9-46f8-9a3b-80a4a6cdd52a" class="">As the number of light rays increase in hemisphere sampling, the noise level of the soft shadows decrease. With a low number of samples, the soft shadows are noisy and the region of the soft shadow appears large, becoming noisier as it moves farther from the object. But when the light ray samples increase, the soft shadow region converges to the the actual region.</p><p id="aaf2b0d1-b4b8-4ce6-be63-f98937c0eb83" class="">
+</p><div id="ef3186f0-828f-4f7c-a149-31160ee1b463" class="column-list"><div id="10de7cbb-d858-49a2-8273-d51e5f132fb6" style="width:50.000000000000014%" class="column"><figure id="54f24341-ce3f-4ccc-8372-dd2181d443a1" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1_1.png"><img style="width:480px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1_1.png"/></a><figcaption>1 light rays, 1 sample per pixel, light sampling
+<code>./pathtracer -t 8 -s 1 -l 1 -m 6 -f bunny_1_64_64.png -r 480 360 ../dae/sky/CBbunny.dae 
+</code></figcaption></figure><figure id="6d152455-8b09-4e06-9a2e-e928e10bcc9a" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1_16.png"><img style="width:480px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1_16.png"/></a><figcaption>16 light rays, 1 sample per pixel, light sampling
+<code>./pathtracer -t 8 -s 1 -l 16 -m 6 -f bunny_1_64_64.png -r 480 360 ../dae/sky/CBbunny.dae</code></figcaption></figure></div><div id="9f7ebedb-3c6e-4c35-9b2a-06642adc2b45" style="width:50%" class="column"><figure id="c4eeb792-fcf3-472d-ad43-a6c1680477de" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1_4.png"><img style="width:480px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1_4.png"/></a><figcaption>4 light rays, 1 sample per pixel, light sampling
+<code>./pathtracer -t 8 -s 1 -l 4 -m 6 -f bunny_1_64_64.png -r 480 360 ../dae/sky/CBbunny.dae 
+</code></figcaption></figure><figure id="a5cf7916-0990-4b7b-ad35-8436c7d8567f" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1_64_64.png"><img style="width:480px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1_64_64.png"/></a><figcaption>64 light rays, 1 sample per pixel, light sampling
+<code>./pathtracer -t 8 -s 1 -l 64 -m 6 -f bunny_1_64_64.png -r 480 360 ../dae/sky/CBbunny.dae</code></figcaption></figure></div></div><p id="6fea8250-f8ae-43fa-97d4-bc5e9785a0d7" class="">
+</p><p id="f53b3d2a-3f36-4abb-a8ee-017fa5ae2b2e" class=""><strong>Compare the results between uniform hemisphere sampling and lighting sampling in a one-paragraph analysis.</strong></p><p id="b2052fe2-5f3f-4d9d-8b61-d94ad497d035" class="">Importance sampling the light reduces the total noise per sample.</p><p id="d97d3245-b0cc-45d1-9711-8f3d2f03f07d" class="">Uniform hemisphere lighting will not accumulate radiance from point light sources since the probability that a ray sampled uniformly from the unit hemisphere hits a point light source is essentially 0.</p><p id="18f6989b-8717-4198-8eda-79f7fa0a9baf" class="">As the number of light rays increase in hemisphere sampling, the noise level of the soft shadows decrease. With a low number of samples, the soft shadows are noisy and the region of the soft shadow appears large, becoming noisier as it moves farther from the object. But when the light ray samples increase, the soft shadow region converges to the the actual region.</p><p id="c899a18c-ebda-46ad-a8d5-c0f68dc0ec8c" class="">Light sampling converges quicker to the answer than uniform hemisphere sampling.</p><h1 id="4e7e4433-e021-4752-a731-e87c761d4f1e" class="">Part 4</h1><p id="b5ca7cb8-a05b-4435-943b-eb3a0a6c86ec" class=""><strong>Walk through your implementation of the indirect lighting function.</strong></p><p id="ededa25d-db06-435f-807a-285dc20c49fd" class="">We partition the rendering into 2 parts: calculating the zero-bounce radiance and calculating the at-least-one bounce radiance.</p><p id="d256ccd2-1dbf-4df1-9cde-12912e32d74a" class="">The zero-bounce radiance was implemented in the previous parts and is calculating the light that results from no bounces of light, essentially just rendering only the emissive surfaces.</p><p id="ac78bd25-e417-44dd-9985-cbe53094012d" class="">
+</p><p id="f6b96b80-67b1-4dd2-bba6-d1ffbcd0a5aa" class="">The indirect lighting function is implemented in at-least-one bounce radiance. It is a recursive process. </p><p id="af92d602-f3fd-493d-8059-24309a48515d" class="">At each ray depth, when a ray intersects a surface we calculate the one-bounce radiance arriving at the intersection—in other words, the radiance resulting directly from the lights in the scene.</p><p id="749a31b8-18b3-4f43-b5be-fd8ab839b65a" class="">Then, we begin accumulating the additional incoming radiance at the point that results from the indirect lighting of the scene (incoming light that requires more than one bounce to arrive at this point). We estimate the indirect light by the sampling incoming rays via a combination of Monte Carlo estimation and Russian Roulette. For each sample, we flip a coin with a probability <code>continuation_prob</code>—if the coin lands head we continue with the sample, otherwise we discard the current sample and move on to the next (Russian Roulette). </p><p id="1a2e9a53-fed8-4290-ada8-bb5448e6c439" class="">If the coin lands head, we generate an incoming ray and direction by importance sampling the bsdf of the current surface of the intersection. We estimate the incoming radiance from this sample ray by recursively calling the indirect lighting function (at-least-one bounce radiance) with the incoming ray. Then we calculate the outgoing light from this ray direction as a product of this incoming radiance, the bsdf of the surface given the sampled direction, cosine of the angle of the sample direction and the surface normal, and normalizing by both the the pdf of the sample and <code>continuation_prob</code>.</p><p id="da306021-d9e5-447f-9301-c9ad8ab4ced1" class="">
+</p><p id="51ee129a-4e66-4077-af52-769fd358ef74" class="">If the number of ray bounces reaches the max ray depth or the coin lands tails, then we stop recursing.</p><p id="9facba33-c0fd-49dd-8488-be8e2b8c9677" class="">
+</p><p id="8078bbbc-5f73-4e93-a255-25255a668105" class=""><strong>Show some images rendered with global (direct and indirect) illumination. Use 1024 samples per pixel.</strong></p><div id="64a45f9b-5489-4500-87e7-7f55565d1cf9" class="column-list"><div id="a088cb2b-bc35-44a5-82c0-31455e326819" style="width:50%" class="column"><figure id="8601cddb-c09a-4da4-82bf-1d89791ab100" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres_100.png"><img style="width:480px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres_100.png"/></a><figcaption><code>./pathtracer -t 8 -s 1024 -l 16 -m 100 -r 480 360 -f spheres_100.png ../dae/sky/CBspheres_lambertian.dae</code></figcaption></figure></div><div id="befec065-4053-4323-94f2-92e311995c9a" style="width:50%" class="column"><figure id="bb86b19b-b6bc-47f8-9a60-d61195e45c31" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_2.png"><img style="width:480px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_2.png"/></a><figcaption><code>./pathtracer -t 8 -s 1024 -l 16 -m 2 -r 480 360 -f bunny_2.png ../dae/sky/CBbunny.dae</code></figcaption></figure></div></div><p id="63fc83b6-874b-4a18-874d-d6f0d27e4950" class=""><strong>Pick one scene and compare rendered views first with only direct illumination, then only indirect illumination. Use 1024 samples per pixel. (You will have to edit </strong><strong><code>PathTracer::at_least_one_bounce_radiance(...)</code></strong><strong> in your code to generate these views.)</strong></p><p id="4ce3b673-fa6f-405e-b135-fbd8e6766f88" class="">The direct illumination only has no indirect lighting and we see no color bleeding. The light is visible.</p><p id="858947c5-9fd7-4c69-825c-a6e703cd5140" class="">The indirect lighting has color bleeding and smoother shadows, but the light itself is black.</p><div id="af530698-f948-4563-bf78-99fdfb5516a8" class="column-list"><div id="25a91cbc-422b-48d6-8055-51d636010ddb" style="width:50%" class="column"><figure id="8f203e3b-d7b6-4e75-8649-d004beed8e71" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres_1.png"><img style="width:1152px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres_1.png"/></a><figcaption>Only direct illumination (zero bounce and one bounce)
+<code>./pathtracer -t 8 -s 1024 -l 16 -m 0 -r 480 360 -f sphere_directonly.png ../dae/sky/CBspheres_lambertian.dae</code></figcaption></figure></div><div id="3253421e-c187-47e4-a9e4-899e41df4516" style="width:50%" class="column"><figure id="98c33668-1b31-4050-bab4-a4a497da34f9" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/sphere_indirectonly.png"><img style="width:768px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/sphere_indirectonly.png"/></a><figcaption>Only indirect illumination (at least once bounce - one bounce - zero bounce) with max ray depth of 6</figcaption></figure><p id="d75c2e11-3089-4dab-b0aa-0d87ef05898d" class="">
+</p></div></div><p id="5279784e-dc40-4aa9-821b-186776dfa5f8" class=""><strong>For </strong><strong><em>CBbunny.dae</em></strong><strong>, compare rendered views with </strong><strong><code>max_ray_depth</code></strong><strong> set to 0, 1, 2, 3, and 100 (the </strong><strong><code>m</code></strong><strong> flag). Use 1024 samples per pixel.</strong></p><p id="90928a84-4838-41c8-a145-6bf1a9e19fd1" class="">With a max ray depth of 0, we only get the zero-bounce lighting. With a max ray depth of 1, we get zero-bounce and direct lighting. With a max ray depth ≥ 2, we get global illumination. As the max ray depth increases after this, we can a more accurate answer, but the benefits of increasing the max ray depth taper off.</p><div id="61a79bc5-fe24-4e9b-9fbc-d193a9be4cb5" class="column-list"><div id="1b854f9f-daa7-4bf7-a7a6-14545d0eeb7f" style="width:50%" class="column"><figure id="350c4e26-3ef2-418c-acd2-1518ccd8f00f" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_0.png"><img style="width:864px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_0.png"/></a><figcaption> Max ray depth of 0, 1024 samples per pixel
+<code>./pathtracer -t 8 -s 1024 -l 16 -m 0 -r 480 360 -f bunny_0.png ../dae/sky/CBbunny.dae</code></figcaption></figure><p id="dae69a81-6e35-4418-b409-fe165874d834" class="">
+</p><figure id="c10f4031-e7d4-4a50-b81e-8a2bcd4aeeb8" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_2%201.png"><img style="width:720px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_2%201.png"/></a><figcaption>Max ray depth of 2, 1024 samples per pixel
+<code>./pathtracer -t 8 -s 1024 -l 16 -m 2 -r 480 360 -f bunny_2.png ../dae/sky/CBbunny.dae</code></figcaption></figure></div><div id="a542e859-1550-45e5-be1d-0856f57dc794" style="width:50%" class="column"><figure id="e12b9fa0-ac17-43d0-a982-24466989c88f" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1.png"><img style="width:768px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_1.png"/></a><figcaption>Max ray depth of 1, 1024 samples per pixel
+ <code>./pathtracer -t 8 -s 1024 -l 16 -m 1 -r 480 360 -f bunny_1.png ../dae/sky/CBbunny.dae</code></figcaption></figure><p id="1ee26082-d077-43a4-ac7a-8be981323de0" class="">
+</p><figure id="69d20248-5b7c-44c8-93fb-8ddef40c020b" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_3.png"><img style="width:768px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_3.png"/></a><figcaption>Max ray depth of 3, 1024 samples per pixel
+<code>./pathtracer -t 8 -s 1024 -l 4 -m 3 -r 480 360 -f bunny_3.png ../dae/sky/CBbunny.dae</code></figcaption></figure></div></div><figure id="da67c65d-4591-41d2-ab65-5672183ce03f" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_100.png"><img style="width:720px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_100.png"/></a><figcaption>Max ray depth of 100, 1024 samples per pixel
+<code>./pathtracer -t 8 -s 1024 -l 1 -m 100 -r 480 360 -f bunny_100.png ../dae/sky/CBbunny.dae</code></figcaption></figure><p id="dab513ef-fe95-4e09-b17a-7df6d9d49b6a" class="">   </p><p id="1e1df56d-8965-4e42-86a2-8f95f5a1a6e8" class="">
+</p><p id="e40db820-2a87-4fb6-af19-8638114df952" class=""><strong>Pick one scene and compare rendered views with various sample-per-pixel rates, including at least 1, 2, 4, 8, 16, 64, and 1024. Use 4 light rays.</strong></p><p id="dca77ba4-8aab-4ce4-9bdb-7c9585ad4650" class="">As the sample-per-pixel rates increase, the noise decreases and the closer we get to the answer.</p><div id="259b09ce-1aa2-4b38-98ce-31398e73a581" class="column-list"><div id="7b8c3e95-cd36-4bc7-8b5b-440ec6b5e550" style="width:50%" class="column"><figure id="4fedef4d-31a8-4416-957e-7198d00aab87" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_1.png"><img style="width:912px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_1.png"/></a><figcaption>1 sample per pixel
+<code>./pathtracer -t 8 -s 1 -l 4 -m 6 -r 480 360 -f banana_1.png ../dae/keenan/banana.dae</code></figcaption></figure><figure id="67be58c3-a2da-48d1-93ba-bf968d4419d8" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_4.png"><img style="width:864px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_4.png"/></a><figcaption>4 samples per pixel
+<code>./pathtracer -t 8 -s 4 -l 4 -m 6 -r 480 360 -f banana_4.png ../dae/keenan/banana.dae</code></figcaption></figure><figure id="6e77f4dc-3719-4ae2-b43a-cf269ffb2435" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_16.png"><img style="width:864px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_16.png"/></a><figcaption>16 samples per pixel
+<code>./pathtracer -t 8 -s 16 -l 4 -m 6 -r 480 360 -f banana_16.png ../dae/keenan/banana.dae</code></figcaption></figure></div><div id="f2322e48-44a8-46ed-affd-d938b8bade24" style="width:50%" class="column"><figure id="9e251c2e-2738-4db0-a004-b3f9c23302d2" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_2.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_2.png"/></a><figcaption>2 samples per pixel
+<code>./pathtracer -t 8 -s 2 -l 4 -m 6 -r 480 360 -f banana_2.png ../dae/keenan/banana.dae</code></figcaption></figure><figure id="77191ee7-abd9-4c65-94b6-54704d3c3981" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_8.png"><img style="width:768px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_8.png"/></a><figcaption>8 samples per pixel
+<code>./pathtracer -t 8 -s 8 -l 4 -m 6 -r 480 360 -f banana_8.png ../dae/keenan/banana.dae</code></figcaption></figure><figure id="e4a171cf-7047-4cd3-a04f-0764f5675da4" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_64.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_64.png"/></a><figcaption>64 samples per pixel
+<code>./pathtracer -t 8 -s 64 -l 4 -m 6 -r 480 360 -f banana_64.png ../dae/keenan/banana.dae</code></figcaption></figure></div></div><figure id="1cca89b1-e118-44df-8732-627ed7c5e7a0" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_1024.png"><img style="width:864px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/banana_1024.png"/></a><figcaption>1024 samples per pixel
+<code>./pathtracer -t 8 -s 1024 -l 4 -m 6 -r 480 360 -f banana_1024.png ../dae/keenan/banana.dae</code></figcaption></figure><p id="b24f318a-5877-4f16-a568-f73efee198ab" class="">
+</p><h1 id="f6491dd9-b730-4563-852f-73c5a2deb505" class="">Part 5</h1><p id="32788175-eda5-4f20-8ae0-706e159edfb2" class=""><strong>Explain adaptive sampling. Walk through your implementation of the adaptive sampling.</strong></p><p id="a6c73417-0b48-41a2-9500-27d71a7523d4" class="">Adaptive sampling is a method to non-uniformly allocate samples to areas of the image that will need more or less samples to converge to the right answer. By redistributing the samples with adaptive sampling, we can reduce the total noise for a given number of samples.</p><p id="fcd30937-ca14-4d5f-a4db-dc221df7d95e" class="">For each pixel, we can calculate a statistical measure of the its convergence <code>I</code> by keeping track of the number of samples taken so far and calculating the mean and standard deviation of the illuminance of the pixel so far.</p><p id="d3b0d08d-2bb2-4962-a644-352e3fa4807a" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mn>1.96</mn><mo>⋅</mo><mtext>​​​​​​</mtext><mi>σ</mi><mi mathvariant="normal">/</mi><mtext>√​</mtext><mi>n</mi><mtext>​</mtext></mrow><annotation encoding="application/x-tex">I=1.96⋅​​​​​​σ/√​n​</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1.96</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.05em;vertical-align:-0.25em;"></span><span class="mord">​​​​​​</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mord">/√​</span><span class="mord mathnormal">n</span><span class="mord">​</span></span></span></span></span><span>﻿</span></span></p><p id="0eaeeb9b-31cd-4afd-bd09-943f0339a70b" class="">When <code>I</code> is small, we have more confidence that the pixel has converged.  We can stop taking samples when we are confident enough that the pixel is converged with the following condition:</p><p id="df06c41f-e2bb-4d25-9cfd-00bd6a020007" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>≤</mo><mi>m</mi><mi>a</mi><mi>x</mi><mi>T</mi><mi>o</mi><mi>l</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo>⋅</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">I≤maxTolerance⋅μ</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">ma</span><span class="mord mathnormal">x</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal">an</span><span class="mord mathnormal">ce</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">μ</span></span></span></span></span><span>﻿</span></span></p><div id="509abfaa-7a44-4720-81ab-01a172d2464d" class="column-list"><div id="1244fbd3-58b6-471b-ab8f-91f7082f19f1" style="width:50%" class="column"><p id="3601aa29-7b35-422a-ac12-3a6d3fd88629" class="">In my implementation, I keep track of 2 variables <code>s1</code>, <code>s2</code>, corresponding to the sum of the illuminance so far and the sum of the squared illuminance so far. Every <code>samplesPerBatch</code>, samples I calculate the mean, variance, and standard deviation using <code>s1</code>, <code>s2</code> and check the above termination criteria.</p></div><div id="1c529939-06ab-487b-903f-d5bae42cdd53" style="width:14.705882352941185%" class="column"><figure id="6f57f7e0-8708-42bd-a886-589ec4af2e24" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%204.png"><img style="width:240px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%204.png"/></a></figure></div><div id="34b13127-9273-48c3-8b08-267b82336196" style="width:35.294117647058826%" class="column"><figure id="e4dfcb5a-3343-4fa5-be8f-4b7611a87d69" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%205.png"><img style="width:328px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/Untitled%205.png"/></a></figure></div></div><p id="500ab6d6-4293-4bfe-a059-37fc74629835" class="">
+</p><p id="cddd1be7-4f43-43d7-93f6-a3cfb5ce036a" class="">
+</p><p id="962283d6-8c3c-4ec5-88b2-d389021bbc2e" class=""><strong>Pick two scenes and render them with at least 2048 samples per pixel. Show a good sampling rate image with clearly visible differences in sampling rate over various regions and pixels. Include both your sample rate image, which shows your how your adaptive sampling changes depending on which part of the image you are rendering, and your noise-free rendered result. Use 1 sample per light and at least 5 for max ray depth.</strong></p><div id="70a07e40-eec1-4130-b62f-0a3be89ce859" class="column-list"><div id="985f2645-1849-4fb1-a444-19208dc58255" style="width:50.000000000000014%" class="column"><figure id="01810bcb-dd81-4c7e-8ba4-4bc30642fad8" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny.png"><img style="width:720px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny.png"/></a><figcaption>Bunny with adaptive sampling. 2048 samples per pixel, 1 sample per light, 5 max ray depth
+<code>./pathtracer -t 8 -s 2048 -a 64 0.05 -l 1 -m 5 -r 480 360 -f bunny.png ../dae/sky/CBbunny.dae</code></figcaption></figure><p id="9c22655a-0bd6-4f72-a959-512fe6278ee8" class="">
+</p></div><div id="0cca4df5-fb14-45a4-afbd-4a8362c6b82c" style="width:50%" class="column"><figure id="26b92163-72f9-4ce5-934c-09d96382e177" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_rate.png"><img style="width:864px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/bunny_rate.png"/></a><figcaption>Sample rates per pixel for Bunny render with adaptive sampling</figcaption></figure></div></div><div id="528b7401-aa9b-4f97-adad-4370a18bcc06" class="column-list"><div id="2fb26439-68c4-4b07-8361-2e02cdf817e9" style="width:50%" class="column"><figure id="5ce6fa62-3a48-4a39-9642-7e765a35a0a6" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres%202.png"><img style="width:768px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres%202.png"/></a><figcaption>Spheres with adaptive sampling. 2048 samples per pixel, 1 sample per light, 5 max ray depth
+<code>./pathtracer -t 8 -s 2048 -a 64 0.05 -l 1 -m 5 -r 480 360 -f spheres.png ../dae/sky/CBspheres_lambertian.dae</code></figcaption></figure></div><div id="838e5187-92db-4624-9026-f386a4809678" style="width:50%" class="column"><figure id="b9ef34ba-dc69-4b96-ac62-939e789612cf" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres_rate.png"><img style="width:768px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20dbe694bdde8d4b049d46309c0e5a32e0/spheres_rate.png"/></a><figcaption>Sample rates per pixel for Spheres render with adaptive sampling
+</figcaption></figure></div></div><p id="afb99e6c-6ce7-46c5-b283-1bfa04bdc96e" class="">
+</p></div></article></body></html>
