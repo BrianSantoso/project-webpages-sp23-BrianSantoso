@@ -1,7 +1,703 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 4 here
-	</body>
-</html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS 184: Computer Graphics and Imaging, Spring 2023</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c444c751-7a1b-4224-a031-8138ac27fbfd" class="page sans"><header><h1 class="page-title">CS 184: Computer Graphics and Imaging, Spring 2023</h1></header><div class="page-body"><h1 id="6e1aee75-53d4-404c-bcf5-b650211b38d8" class="">Project 4: </h1><h2 id="eb16a681-a036-4ded-b803-406eecf5b826" class="">Brian Santoso, CS184 Team: <strong>#1-lana-del-rey-fan!!!</strong></h2><p id="6be1b4e2-ae46-4ca7-b42b-de40e39b9efc" class="">Webpage: <a href="https://briansantoso.github.io/project-webpages-sp23-BrianSantoso/proj4/index.html">https://briansantoso.github.io/project-webpages-sp23-BrianSantoso/proj4/index.html</a></p><h1 id="82b65485-4cbc-4666-9b90-1f6b8182677c" class="">Overview</h1><p id="699c09a3-d195-4789-9dcb-99788e18a44a" class="">In this project, I implement a cloth simulator with object collisions and self-collisions. The cloth is comprised of a grid of point masses with structural, shearing, and bending springs. I simulate the movement of cloth with external forces (i.e., gravity) and internal spring forces via Verlet integration. I handle cloth collisions with spheres and planes. Finally, I implement various vertex and fragment shaders, including Blinn-Phong shading, texture mapping, bump mapping, displacement mapping, and mirror material with environment-mapped reflection shaders.</p><h1 id="f7c3a42d-215e-45d3-8f16-ae10d128f352" class="">Part 1</h1><p id="ee858029-8372-43b9-a0da-40fb8a0ecbb1" class="">In this part, I build a grid of springs and masses. First I build the grid of masses by simply iterating over the width and height of the cloth and adding masses in a grid with <code>length / (num_points - 1)</code> space between adjacent point masses with respect to width and length.</p><p id="76d0b4ca-7311-438d-a862-b03ad1fbbcc7" class="">
+</p><p id="fc84e562-873e-49b5-9e9c-67ef10f54e19" class="">Then I build the springs connecting the masses. For each point mass in the grid, whenever possible, I construct springs connecting the mass to its adjacent 1 to the right, 1 above (structural springs), 2 to the right, 2 above (bending springs), diagonal up and right 1, and finally a spring connecting the 2 masses directly above and to the right of the current mass (shearing springs).</p><ul id="63080623-f44c-4fb4-bdcb-387d02d9dda5" class="bulleted-list"><li style="list-style-type:disc"><strong>Take some screenshots of </strong><strong><em>scene/pinned2.json</em></strong><strong> from a viewing angle where you can clearly see the cloth wireframe to show the structure of your point masses and springs.</strong><figure id="92169199-beb0-4bae-bc53-21dadf817bb6" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p1_1.png"><img style="width:912px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p1_1.png"/></a></figure></li></ul><ul id="d83295bc-a75c-4c2b-82a3-d7a127bb86ce" class="bulleted-list"><li style="list-style-type:disc"><strong>Show us what the wireframe looks like (1) without any shearing constraints, (2) with only shearing constraints, and (3) with all constraints.</strong></li></ul><p id="de77161e-41a1-43de-abd6-3894639e6fb3" class=""><div class="indented"><figure id="0ec8e9ff-c132-4d70-a713-d78915013cf6" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p1_noshearing.png"><img style="width:912px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p1_noshearing.png"/></a><figcaption>Without shearing</figcaption></figure><figure id="3a7e6084-2722-42f0-8aa5-245c4cb9b838" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p1_onlyshearing.png"><img style="width:912px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p1_onlyshearing.png"/></a><figcaption>Only shearing</figcaption></figure><figure id="0b6087d9-4b5d-4bc3-afd5-b07de424e062" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p1_1%201.png"><img style="width:912px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p1_1%201.png"/></a><figcaption>All constraints</figcaption></figure></div></p><h1 id="deb14933-035d-49ae-a233-c078b33ac017" class="">Part 2</h1><p id="512d8b23-3c70-4a3b-9d0c-1ccd48cd59d7" class="">In this part I simulate the movement of cloth with external forces (i.e., gravity) and internal spring forces via Verlet integration, without object collisions and self-collisions (implemented in parts 3 and 4).</p><p id="57a92e26-1923-4ba1-8646-9809ee4c97f8" class="">At each timestep, I reset the external forces of all masses as not to accumulate extra, non-existent forces.</p><p id="7036de2d-8e03-43c3-964f-bce7c767db2c" class="">Then, I compute the net external force to be applied to all point masses once since all external forces are applied uniformly to all masses—this is accomplished by adding up all the external accelerations and multiplying by mass. I then apply this force to all masses.</p><p id="501e2b5d-4eb7-4903-85b4-62a1b6d0d966" class="">Then I calculate the net spring correction forces for each individual mass. I do this by iterating through all springs, and accumulating the resulting spring correction forces to each of the spring’s 2 masses (the 2 resulting forces are equal and opposite each other). These spring correction forces are calculated by scaling the respective direction of the mass by the spring constant and the difference between the distance between the masses and spring rest length. For bending constraint springs, the spring constant is multiplied by 0.2.</p><p id="3ac7112f-ed24-4301-bac4-61beaf1afc30" class="">Now that I have calculated the net force acting upon each mass, I then update the position of each mass via Verlet integration, ignoring pinned masses. Verlet integration is a method of numerical integration. It is an explicit integrator that is fairly accurate and relatively easy to implement. The updated position of each point mass is described as follows:</p><p id="d4c7df98-1109-4910-b024-0f3c8fd9b62e" class="">
+</p><figure id="45045847-bab3-449e-a768-b5fada481393" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/Untitled.png"><img style="width:488px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/Untitled.png"/></a></figure><p id="752b3c08-6bdc-48cb-ba78-4364189dfb83" class="">
+</p><p id="df891559-d89e-44c4-ac58-2a306cc5e969" class="">Where <code>d</code> is the dampening constant, <code>x_t - x_{t-dt}</code> is the difference in position from the current time step and previous timestep and is equal to <code>v_t * dt</code>, and <code>a_t</code> is the acceleration at the current timestep which is calculated by dividing the point mass’s net force by its mass.</p><p id="b7dba90d-e4d5-442e-9f56-93a945e7cdf9" class="">
+</p><p id="f60f3f4f-2654-4a5f-afcc-1aad26802c6f" class="">Finally I constrain the changes in the point mass positions to be such that the spring does not change in length more than 10% per timestep according the 1995 SIGGRAPH Paper [Provot 1995]. If the spring length is more than 10% of its rest length, then I apply a position correction uniformly to each of the non-pinned masses. The magnitude of the total position correction is equal to the difference in the spring’s current length and max length (1.1 * rest length).</p><p id="05f464fd-8f5f-4687-baf5-2894daa4a09f" class="">
+</p><ul id="1a1293ff-069d-4341-8787-ce067de26c07" class="bulleted-list"><li style="list-style-type:disc"><strong>Experiment with some the parameters in the simulation. To do so, pause the simulation at the start with </strong><strong><code>P</code></strong><strong>, modify the values of interest, and then resume by pressing </strong><strong><code>P</code></strong><strong> again. You can also restart the simulation at any time from the cloth&#x27;s starting position by pressing </strong><strong><code>R</code></strong><strong>.</strong><ul id="b9a39dfe-f2c7-4641-b46c-15a61c700f83" class="bulleted-list"><li style="list-style-type:circle"><strong>Describe the effects of changing the spring constant </strong><strong><code>ks</code></strong><strong>; how does the cloth behave from start to rest with a very low </strong><strong><code>ks</code></strong><strong>? A high </strong><strong><code>ks</code></strong><strong>?</strong><p id="1e627c90-b105-418a-bea7-62216371df50" class="">A small spring constant corresponds to a “springy” cloth, and before the cloth reaches its rest state, the cloth has many wrinkles and waves. At its rest state, the cloth has multiple folds between its pinned masses when it droops.</p><figure id="792768fb-8ebb-465d-9126-4cab4bb6dea6" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowks_fall.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowks_fall.png"/></a><figcaption>Small spring constant <code>ks = 5</code></figcaption></figure><figure id="452315b3-7825-45c5-a862-45c9f4f1a4f7" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowks_rest.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowks_rest.png"/></a><figcaption>Small spring constant <code>ks = 5</code></figcaption></figure><p id="a330a00b-bf5c-41eb-8bb3-84a33e8dfdff" class="">
+</p><p id="d5ebb1f3-dda3-4765-bf41-3c62b4003350" class="">A large spring constant corresponds to a “stiff” cloth, and before the cloth reaches its reset state, the cloth has few wrinkles and waves, and appears smoother in texture. At its rest sate, the cloth has few (often only a single) fold between its pinned masses when it droops.</p><figure id="ce5355c8-a692-4e0b-8d22-c5ff3bf4d6fd" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highks_fall.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highks_fall.png"/></a><figcaption>Large spring constant <code>ks = 20000</code></figcaption></figure><figure id="6e15cbc1-4588-4fc0-8fa9-8ca81a1c7f40" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highks_rest.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highks_rest.png"/></a><figcaption>Large spring constant <code>ks = 20000</code></figcaption></figure></li></ul><ul id="4457b9ab-e288-44b5-b0a3-cbc6fcd3b442" class="bulleted-list"><li style="list-style-type:circle"><strong>What about for </strong><strong><code>density</code></strong><strong>?</strong><p id="c3399510-4110-407c-99b1-5081eeec0be5" class="">A small density corresponds to a “light” cloth, and before it reaches its rest state, the cloth has few wrinkles and waves - it appears as if it falls smoothly. At its rest state, the cloth droops down less between its pinned masses due to its lighter weight and has few wrinkles.</p><figure id="28d5555e-b214-4fea-9bda-edff1eae6132" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowdensity_fall.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowdensity_fall.png"/></a><figcaption>Small density</figcaption></figure><figure id="7cef8ff7-96d8-4f48-a92c-5252aea6c391" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowdensity_rest.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowdensity_rest.png"/></a><figcaption>Small density</figcaption></figure><p id="e1afb507-8cea-4ab5-af83-d245513c8ca2" class="">A high density corresponds to a “heavy” cloth, and before it reaches its rest state, the cloth has many wrinkles and waves - it appears as if it falls violently. At its rest state, the cloth droops down more between its pinned masses due to its heavier weight and has many wrinkles.</p><figure id="c485fd77-6a9a-4930-8a61-29c003120188" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highdensity_fall.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highdensity_fall.png"/></a><figcaption>High Density</figcaption></figure><figure id="4e5b5217-28bf-4e50-a363-7b7ae95f1dc6" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highdensity_rest.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highdensity_rest.png"/></a><figcaption>High Density</figcaption></figure></li></ul><ul id="6639533c-d6a8-419f-bcc7-32bc5bf2732d" class="bulleted-list"><li style="list-style-type:circle"><strong>What about for </strong><strong><code>damping</code></strong><strong>?</strong><p id="25689eb4-2f4c-4d57-a8bc-f56fcfedb651" class="">A small dampening value corresponds to a “stretchy”/”bouncy” cloth, and before it reaches its rest state, the cloth falls quickly, chaotically, manifesting many wrinkles and waves - it bounces around for a long time before finally reaching its rest state and almost appears fluid-like. At its rest state, the cloth has few folds between its pinned masses.</p><figure id="83d4a404-1902-4d7d-8348-87c67e53ed1a" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowdampening_fall.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowdampening_fall.png"/></a><figcaption>Small damping</figcaption></figure><figure id="6d1bc157-e76b-430e-aa37-5b7ca3b6d013" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowdamping_rest.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_lowdamping_rest.png"/></a><figcaption>Small damping</figcaption></figure><p id="678a0b32-0c50-4f0d-ae7a-5eb0057a85b1" class="">A large dampening value corresponds to a “stiff”/”firm” cloth, and before it reaches its rest state, the cloth falls slowly, smoothly, and with few wrinkles or waves - it does not bounce for long before reaching its rest state and appears more solid-like. At its rest state, the cloth has few folds between its pinned masses.</p><figure id="0b8d655c-132c-480b-bffb-ad8bb35a19a2" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highdamp_fall.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highdamp_fall.png"/></a><figcaption>Large damping</figcaption></figure><figure id="16d62692-87a5-4d2f-8aae-ca797b9a49f7" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highdamp_rest.png"><img style="width:960px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_highdamp_rest.png"/></a><figcaption>Large damping</figcaption></figure></li></ul></li></ul><ul id="608f3ac1-af25-439a-b4be-3fe2700d122b" class="bulleted-list"><li style="list-style-type:disc"><strong>Show us a screenshot of your shaded cloth from </strong><strong><em>scene/pinned4.json</em></strong><strong> in its final resting state! If you choose to use different parameters than the default ones, please list them.</strong><figure id="05f8fb87-aa2a-4d37-9185-1f958595c652" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_pinned4.png"><img style="width:1008px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p2_pinned4.png"/></a></figure></li></ul><p id="6271b101-6e45-419c-a0c5-1fecae844dd0" class="">
+</p><h1 id="90fa086d-9b51-4971-a6a3-6144bd6df1aa" class="">Part 3</h1><p id="573120f5-bc0b-419a-ba70-c5de03a460d0" class="">In this part, I handle collisions with other objects, namely spheres and planes.</p><p id="af6f2ca6-f17c-4928-b65d-cdc416ed5139" class="">For collisions for spheres, I first check if the mass is inside the sphere by simply checking if its distance to the sphere’s origin is less than or equal the radius. If the mass is inside the sphere, then I compute the tangent point which is defined as where the point mass should have intersected the sphere. The direction of this path is calculated as the difference between the mass position and the sphere’s origin. Then I compute the correction vector that needs to be applied to the mass&#x27;s last position in order to reach the tangent point, scaled down by friction (1 - f).</p><p id="24072694-f24e-4fcf-9b5a-e6ae73ef80b1" class="">
+</p><p id="dfa051c7-6818-4644-9011-0fc3ca850432" class=""><strong>Show us screenshots of your shaded cloth from </strong><strong><em>scene/sphere.json</em></strong><strong> in its final resting state on the sphere using the default </strong><strong><code>ks = 5000</code></strong><strong> as well as with </strong><strong><code>ks = 500</code></strong><strong> and </strong><strong><code>ks = 50000</code></strong><strong>. Describe the differences in the results.</strong></p><p id="c1377ccf-4733-4a20-b075-1a5d75243479" class="">
+</p><p id="98d5f504-f1e3-4f5c-8d69-287daaddb884" class="">With <code>ks = 500</code> the cloth droops the most with many folds and waves, with its folds appearing the most intensely creased.</p><p id="a145bf45-6d7f-4fdd-b902-012691524420" class="">With <code>ks = 5000</code> the cloth droops wider with a less folds and waves, appearing less intensely creased.</p><p id="db3777ac-aa81-4f3a-b846-f9f879eee55d" class="">With <code>ks = 50000</code> the cloth droops the widest with the fewest folds and waves, appearing the least intensely creased.<div class="indented"><p id="3e1bcc12-26b0-4a2a-b8ba-46aeac2c066e" class="">
+</p><figure id="d422def0-dd84-4fb2-84e1-3e170740fee1" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p3_ks500.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p3_ks500.png"/></a><figcaption><code>ks = 500</code></figcaption></figure><figure id="d6fec6dd-df0b-4dc6-a50b-7f4bfb22cc44" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p3_ks5000.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p3_ks5000.png"/></a><figcaption><code>ks = 5000</code></figcaption></figure><figure id="d3f203c1-e775-49b8-9585-2e35fc8dad5e" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p3_ks50000.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p3_ks50000.png"/></a><figcaption><code>ks = 50000</code></figcaption></figure></div></p><ul id="787c1573-c1f9-41ee-95b0-fae55a876188" class="bulleted-list"><li style="list-style-type:disc"><strong>Show us a screenshot of your shaded cloth lying peacefully at rest on the plane.</strong><figure id="1fa22cc2-e490-403d-a8e6-b9fccbc8610a" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p3_plane.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p3_plane.png"/></a></figure></li></ul><p id="16eebaf6-c06f-4dc4-a619-9adb912731ce" class="">
+</p><h1 id="edbec679-1dc9-4b00-b5f8-166bb681822a" class="">Part 4</h1><p id="bdbd4821-c907-4c33-8ab9-bb67b8318f9c" class="">In this part I handle self-collisions of the cloth using a spatial hash map to accelerate comparisons. First I define a hash function maps a 3D position into a unique float identifier that represents membership in a 3D box volume. To do this, I first define a 3D box volume with width, height and depth <code>w</code>, <code>h</code>, and <code>t</code>.  The hash function takes a 3D position and computes “box coordinates” (x,y,z indices of the corresponding a 3D box volume) by floor dividing by the box volume dimensions. The hash function then returns <code>box_x * 256 + box_y * 16 + box_z</code> to achieve a float with few hash collisions.</p><p id="670cb81a-1f83-43a0-b259-c80652a26568" class="">Then I construct a spatial map that maps these unique float identifiers to a list of point masses belonging to the corresponding 3D box volume.</p><p id="6a721059-bc3b-4ad0-bfe5-34e217088c48" class="">Finally, to implement the self-collision handling for a given point mass, I retrieve the list of masses that belong to the same box volume. For each mass in the volume, not including the original mass itself, a collision is defined as having a distance within twice the thickness of the cloth. If a collision occurs, then a correction vector is accumulated to the original mass such that the two colliding point masses are not colliding anymore. The final position correction vector for the original mass is equal to the net correction, divided by the number of collisions, and scaled down by the number of simulation steps. Finally, this position correction is applied to the original point mass.</p><ul id="89002d52-58d7-42a1-aa3c-104fa3fd9e6d" class="bulleted-list"><li style="list-style-type:disc"><strong>Show us at least 3 screenshots that document how your cloth falls and folds on itself, starting with an early, initial self-collision and ending with the cloth at a more restful state (even if it is still slightly bouncy on the ground).</strong></li></ul><div id="b5b32052-d96c-4381-9daa-5c2799f92c06" class="column-list"><div id="9e6cfca0-3c0a-49ba-8eff-294625d1cf8f" style="width:50%" class="column"><figure id="a12299a0-e186-46c4-bbf9-5fbd9b932604" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_early_selfcollision.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_early_selfcollision.png"/></a><figcaption><strong>Falling cloth at its first self-collision
+</strong>
+<strong>At its first self-collision, the cloth folds at the bottom and a wave of ripples propagates towards the top of the cloth.
+</strong></figcaption></figure><figure id="7c324933-a192-4220-a220-5aa8ca7d7125" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_late_selfcollision.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_late_selfcollision.png"/></a><figcaption><strong>Falling cloth begins to flatten out.
+</strong>
+<strong>Ripples and wrinkles begin to smooth out.</strong></figcaption></figure></div><div id="54b74e37-80d1-4e3d-95d2-bc4bce11928d" style="width:50%" class="column"><figure id="0f36099e-f5e9-4379-b7e8-b5a5569634d7" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_mid_selfcollision.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_mid_selfcollision.png"/></a><figcaption><strong>Falling cloth after many early self-collisions.
+</strong>
+<strong>The cloth accumulates folds as the falls onto itself.
+</strong>
+</figcaption></figure><figure id="d242e1a3-9f38-40bb-a1d2-226df346493d" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_rest.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_rest.png"/></a><figcaption><strong>Falling cloth at its restful state. The cloth is smooth, resting peacefully on the ground (albeit with a little bouncing).</strong></figcaption></figure></div></div><p id="2fbf2557-79fc-4a9f-98ef-3cf220219dab" class="">
+</p><ul id="4e55bd4b-7357-4976-a6ca-10c1f9eaef62" class="bulleted-list"><li style="list-style-type:disc"><strong>Vary the </strong><strong><code>density</code></strong><strong> as well as </strong><strong><code>ks</code></strong><strong> and describe with words and screenshots how they affect the behavior of the cloth as it falls on itself.</strong><p id="07232572-ab52-4df8-89c2-f26f502e3405" class="">With a low density, many thin waves propagate quickly through the cloth after its first self-collision. The cloth falls slowly and bounces on itself when self-colliding. It continues to bounce quite a bit before becoming flat. When the cloth is flat, there are many thin fluid-like ripples that propagate throughout the cloth before it arrives at its resting state</p><figure id="be9b696c-7d7b-4111-8918-854b4c815be9" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowdensity_mid.png"><img style="width:624px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowdensity_mid.png"/></a><figcaption>Low density cloth begins to self collide</figcaption></figure><figure id="dc2f27c4-4828-4413-a62b-c4e70a54489a" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowdensity_late.png"><img style="width:624px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowdensity_late.png"/></a><figcaption>Low density cloth falls to floor</figcaption></figure><figure id="21668d7a-d53e-4f2e-bd77-a99a92133a3e" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowdensity_latelate.png"><img style="width:624px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowdensity_latelate.png"/></a><figcaption>Low density cloth flattens out</figcaption></figure><figure id="664cdea2-34bc-4d33-ac3f-221d31b5d156" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowdensity_rest.png"><img style="width:624px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowdensity_rest.png"/></a><figcaption>Low density cloth near rest state</figcaption></figure><p id="8a01a2af-ed61-4e4d-83bb-9531348d89b0" class="">With a high density, a few thick waves slowly propagate through the cloth after its first self-collision. The cloth falls slowly and bounces less on itself when self-colliding. It continues to bounce quite a bit, but with less intensity, before becoming flat. When the cloth is flat, there are many thick fluid-like ripples that propagate throughout the cloth before it arrives at its resting state.</p><figure id="dd01c7a4-bc05-44bc-960d-b36dfef843e3" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highdensity_mid.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highdensity_mid.png"/></a><figcaption>High density cloth begins to self collide</figcaption></figure><figure id="2ad063dc-0d37-485f-b72e-1b0fe53cb05a" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highdensity_late.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highdensity_late.png"/></a><figcaption>High density cloth falls to ground</figcaption></figure><figure id="38866948-633f-4df0-ae45-c7df5d8d12cf" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highdensity_rest.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highdensity_rest.png"/></a><figcaption>High density begins to flatten out</figcaption></figure><p id="13209e1a-04f4-4312-a390-e8691b9f1346" class="">With a low spring constant, the cloth collisions are bouncy due to the spring-like cloth material and the folds are thin but plentiful. The cloth wrinkles and folds intensely upon multiple self-collisions during its fall. The cloth bounces on itself quite intensely with many small wrinkles and folds before flattening out like a sheet of jello.</p><figure id="0e53e763-96dc-47f2-b96f-fa2911994257" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowks_early.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowks_early.png"/></a><figcaption>Low spring constant cloth begins to self-collide</figcaption></figure><figure id="829e4f89-07cd-4775-bd06-fc9f7048c4ad" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowks_mid.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowks_mid.png"/></a><figcaption>Low spring constant cloth mid-fall</figcaption></figure><figure id="77754904-cfe5-497f-ad56-709cf86b68b1" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowks_late.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowks_late.png"/></a><figcaption>Low spring constant cloth falls to ground</figcaption></figure><figure id="8bb10d7f-0e1e-479e-832f-6b57556a268c" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowks_rest.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_lowks_rest.png"/></a><figcaption>Low spring constant cloth at rest state</figcaption></figure><p id="a57cd70c-5b84-4622-93d1-1369390158bd" class="">With a high spring constant, the cloth behaves like a stiff material. The cloth bounces less upon self collision and the folds are thick and fewer. The cloth flattens out quite quickly with fewer wrinkles and folds.</p><figure id="7cf1e109-56d1-4a3a-9d73-980a4e7dbb59" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highks_early.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highks_early.png"/></a><figcaption>High spring constant cloth begins to self-collide</figcaption></figure><figure id="c35094cd-7c45-433b-8ec9-a451ebfcea77" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highks_late.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highks_late.png"/></a><figcaption>High spring constant cloth falls to ground</figcaption></figure><figure id="cdf93791-db62-4419-9d20-2c4e0912b821" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highks_rest.png"><img style="width:816px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p4_highks_rest.png"/></a><figcaption>High spring constant cloth at rest state</figcaption></figure><p id="0046cd94-cf2b-4f64-9505-700354b37910" class="">
+</p></li></ul><h1 id="fa4789b3-5456-41b2-b1da-e7f95d6df8f8" class="">Part 5</h1><p id="d78f3c5f-ed2a-4748-acc2-db3bb7284378" class="">In this part I implement various shader vertex and fragment shaders, including the Blinn-Phong shading model, texture mapping, bump mapping, displacement mapping, and mirror material with environment-mapped reflections. I explain each of these implementations in further detail below.</p><ul id="d913c68e-041a-4526-a781-b4c988790fe5" class="bulleted-list"><li style="list-style-type:disc"><strong>Explain in your own words what is a shader program and how vertex and fragment shaders work together to create lighting and material effects.</strong><p id="d9ad1f75-1957-403f-9d3e-e496c2cd5e10" class="">A shader program is a program that is executed on the GPU and carries out a portion of the graphics pipeline and takes advantage of massive parallelism. Their massive performance speedup enables complex real-time 3D graphics.</p><p id="32a84cd7-5fd0-4495-918a-eeab8dc5dc6e" class="">
+</p><p id="70371996-2fa8-4838-be9e-fafa1c405478" class="">A GLSL shader is given inputs called <em>attributes</em> and global variables that are shared across each running instance of the shader called <em>uniforms </em>(allowing for parallelization). It outputs a single 4 dimensional vector and can write values into <em><em><em><em><em><em><em><em>varyings</em></em></em></em></em></em></em></em> which can be used by a subsequent shader (e.g. a vertex shader passing information to a fragment shader).</p><p id="06c9137b-e72a-4f41-bcc3-38e59f49059d" class="">
+</p><p id="43024ae3-67bb-41e8-8faf-dd1d15068540" class="">Shaders are typically used to create custom visual transformations such as complex shading and lighting, texturing, bump/displacement mapping, and simulate appearances leaves swaying in the wind or waves propagating through a fluid.</p><p id="b096b4bc-26ef-4abe-a667-4cee2d0291f1" class="">
+</p><p id="92c9307b-1e6c-4e15-a71d-fdbd801104f7" class="">A vertex shader transforms the geometry of objects. It outputs the modified position of a vertex, and can also be used to transform other properties of the object geometry such as normal vectors. A vertex shaders outputs the final modified position of the vertex into <code>gl_Position</code> as a 4 dimensional vector (xyz and homogenous coordinate), and can write outputs into varyings for the fragment shader to use.</p><p id="f320f6b3-7cac-4b2e-a245-1280314be729" class="">After the vertex shader has transformed the 3D geometry, the object is rasterized into 2D screen space, outputting <em>fragments</em>. These fragments can then be processed by the fragment shader.</p><p id="6419dfae-c128-464c-a166-a05689b35b53" class="">A fragment shader transforms fragments, which are essentially abstract representation of pixels (although the comparison is not literal, as for example a pixel may sample from many fragments) and are the result of rasterization. Fragment shaders take in as inputs the properties of a fragment that is output by the vertex shader and performs a transformation. In GLSL, the final modified color value as a 4-dimensional rgba vector into <code>out_color</code>.</p><p id="ff38e8f0-2b54-4f3d-bace-5b7f56d0e632" class="">
+</p></li></ul><ul id="5214f3bc-f7c7-4422-bc6d-7117980a4f92" class="bulleted-list"><li style="list-style-type:disc"><strong>Explain the Blinn-Phong shading model in your own words. Show a screenshot of your Blinn-Phong shader outputting only the ambient component, a screen shot only outputting the diffuse component, a screen shot only outputting the specular component, and one using the entire Blinn-Phong model.</strong></li></ul><p id="318ab9cf-0733-4a43-8e3e-5336c9aad5c9" class=""><div class="indented"><figure id="061de536-88a3-489f-9cb0-e723ead78db5" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_phong.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_phong.png"/></a><figcaption>Showing rendering of Blinn-Phong shading model, with all 3 ambient, diffuse, and specular components.</figcaption></figure><figure id="28105818-14fa-491e-b60a-b81fe4f69616" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/Untitled%201.png"><img style="width:676px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/Untitled%201.png"/></a></figure><p id="d86e0f3e-073d-4131-b516-d65206aa5b7e" class="">Blinn-Phong is a simple shading model that models 3 simplified components of lighting - ambient light, diffuse light and specular light. </p><p id="bdad4dd4-0470-4673-88af-d94fb644615b" class="">Ambient light is a constant light that pervasive through the scene and is an extremely crude approximation to the accumulation of indirect light. The intensity and color of ambient light can be modified via the ambient coefficient and ambient intensity parameters, <code>k_a</code> and <code>I_a</code>. </p><figure id="71a946e3-229e-4853-b4c9-c870899560fb" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_ambientred.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_ambientred.png"/></a><figcaption>Showing only red ambient light</figcaption></figure><p id="535c8442-8980-47df-87d8-a504e94ebf5a" class="">Diffuse light models the scattering of light off of the surface an object, and different levels of scattering can be specified via the diffuse coefficient <code>k_d</code>. Diffuse light takes into the account the distance squared fall off of the light intensity from a light source. Diffuse light is dependent on the orientation of the surface and the direction of incoming light. and is independent of view direction.</p><figure id="31763469-3cc9-4a32-acf0-8b59706db457" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_diffuse.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_diffuse.png"/></a><figcaption>Showing only diffuse light</figcaption></figure><p id="225d4029-c6f8-45a5-ba8f-57d48b577c11" class="">Specular light models the concentrated reflection of flight that results from shiny and reflective surfaces. Specular light is dependent on view direction, surface orientation, and light direction (in the equation above, <code>h</code> is defined as the bisector of the normalized view and light vectors in the direction away from the surface). The concentration of the specular light can be modified through the the specular coefficient <code>k_s</code> and albedo <code>p</code>, which is a measure of a material’s roughness.</p><figure id="d958456c-47b8-499f-94c4-d311f9351364" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_specular2.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_specular2.png"/></a><figcaption>Showing only specular light</figcaption></figure><p id="6499f5b7-0f4a-44e1-8bb8-ab8ba07fd57e" class="">
+</p></div></p><ul id="fad581cf-d78c-4854-b74b-acffc412b17a" class="bulleted-list"><li style="list-style-type:disc"><strong>Show a screenshot of your texture mapping shader using your own custom texture by modifying the textures in </strong><strong><code>/textures/</code></strong><strong>.</strong><p id="e47c0568-381f-4067-8185-7b2a0d88aba1" class="">I implemented texture mapping in a fragment shader by setting the <code>out_color</code> to be the result of calling the GLSL <code>texture</code> function with the texture and uv-texture coordinates.</p><p id="57b495fd-f1fe-4476-bdf8-91e42a430e2b" class="">I put the Apple crying laughing emoji as one of the textures.</p><figure id="16e4dd00-08da-4e0d-9f2d-00587a75d32b" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_emoji1.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_emoji1.png"/></a></figure><figure id="6db19d63-b983-4539-ade1-417795d8e2e2" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_emoji2.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_emoji2.png"/></a></figure></li></ul><ul id="7c347340-e128-4a85-9331-105b3f19bc3c" class="bulleted-list"><li style="list-style-type:disc"><strong>Show a screenshot of bump mapping on the cloth and on the sphere. Show a screenshot of displacement mapping on the sphere. Use the same texture for both renders. You can either provide your own texture or use one of the ones in the textures directory, BUT choose one that&#x27;s not the default </strong><strong><code>texture_2.png</code></strong><strong>. Compare the two approaches and resulting renders in your own words. Compare how your the two shaders react to the sphere by changing the sphere mesh&#x27;s coarseness by using </strong><strong><code>o 16 -a 16</code></strong><strong> and then </strong><strong><code>o 128 -a 128</code></strong><strong>.</strong><p id="213ddf87-5b80-475a-9f51-0f3d2a16560b" class="">
+</p><p id="bff35757-5970-4008-aa62-0eca3435b566" class="">Both bump mapping and displacement mapping are methods of creating the appearance of texture.</p><p id="a79c0d64-cc66-4051-940d-d7ab7815ad54" class="">Bump mapping creates the illusion of texture by modifying the surface normal via a height map specified by a texture, modifying the way light is reflected and calculated. However, the vertex positions themselves are not modified, so the appearance of texture is less convincing.</p><p id="039918e4-f387-4b57-b5a8-ef40730c7556" class="">Displacement creates the appearance of texture by actually modifying the output position of the vertices via a height map specified by a texture. This leads to a more visible and realistic simulation of texture, where you can see the vertices physically displaced from their original location.</p></li></ul><p id="64e3ae24-afa6-4627-a584-cc18b49b003b" class=""><div class="indented"><figure id="b4bff582-6868-4bc8-9243-e292be6cfc47" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_bump2.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_bump2.png"/></a><figcaption>Bump mapping</figcaption></figure><p id="7ae67714-93e0-4227-b463-162e4e02a4a1" class="">
+</p><figure id="47ebeb6d-bb5a-4858-bea1-a68b831e69b6" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_bump.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_bump.png"/></a><figcaption>Bump mapping</figcaption></figure><p id="79e9d436-c4b2-4d41-aa55-0f8c8a2dbfd4" class="">
+</p><figure id="846b9e41-2634-4070-b57d-dc9d1129f046" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_displacement.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/p5_displacement.png"/></a><figcaption>Displacement mapping</figcaption></figure><p id="4a6601f4-00d5-4a9e-9eab-8fcadae836f9" class="">
+</p><p id="45cb555b-0bd4-4e38-a7d3-ded7a4fadf28" class="">With a small coarseness of 16, both bump mapping and displacement mapping are essentially equivalent since the magnitude of the divets is very small - creating the illusion of coarseness by modifying normals in normal mapping is sufficient. However with a heavy coarseness of 128, displacement mapping is much more accurate since the magnitude of the divets is large and we can see the physical geometric distortion in actually displacing the position of the vertices in displacement mapping.</p><p id="7dd15b60-296d-4573-b9cb-8ff8fa53da08" class="">
+</p><figure id="42b584bb-8ed9-4651-957b-e23362fa92bb" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/bump_a16.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/bump_a16.png"/></a><figcaption>Bump mapping with coarseness <code>o 16 -a 16</code></figcaption></figure><figure id="429f0fcb-92af-469d-ad96-85151fdef354" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/bump_a128.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/bump_a128.png"/></a><figcaption>Bump mapping with coarseness <code>o 128 -a 128</code></figcaption></figure><figure id="80aab791-dc3e-4fcc-88a4-9e8a762808e9" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/displacement_a16.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/displacement_a16.png"/></a><figcaption>Displacement mapping with coarseness <code>o 16 -a 16</code></figcaption></figure><figure id="bbaa7e4a-f6eb-46c9-bfb9-03031864cbd9" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/displacement_a128.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/displacement_a128.png"/></a><figcaption>Displacement mapping with coarseness <code>o 128 -a 128</code></figcaption></figure><p id="8a8bef88-5c6b-4505-99d0-ca8dc4ea158f" class="">
+</p></div></p><ul id="fa919608-a76a-478b-bd6c-ba92aa5421b5" class="bulleted-list"><li style="list-style-type:disc"><strong>Show a screenshot of your mirror shader on the cloth and on the sphere.</strong><p id="7e658b52-ef56-4a75-885d-13b379b169aa" class="">To implement the mirror fragment shader, I compute the normalized view vector from the camera to the position. Then, I reflect the view vector across the normal using the GLSL <code>reflect</code> function. I then set <code>out_color</code> to the result of sampling the texture cubemap, similar to texture mapping, where I call the GLSL <code>texture</code> function with the cubemap and outgoing reflected direction.</p><figure id="74f72c87-1f4c-499a-af3a-6ebdc9c2f9f1" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/mirror1.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/mirror1.png"/></a></figure><figure id="733790f9-a0f0-455d-968b-69921c966ef0" class="image"><a href="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/mirror2.png"><img style="width:1850px" src="CS%20184%20Computer%20Graphics%20and%20Imaging,%20Spring%202023%20c444c7517a1b4224a0318138ac27fbfd/mirror2.png"/></a></figure></li></ul><p id="88dc3c43-90a1-42fc-a283-4e037500ad54" class="">
+</p></div></article></body></html>
